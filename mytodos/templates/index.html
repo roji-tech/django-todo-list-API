@@ -1,0 +1,190 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RojiTech Todo App</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'bs/css/flatly.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+
+<body>
+  <div class="container" id="wrapper">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2" id="content">
+        <h2>WHAT YOU WANT TO DO?</h2>
+
+        <form action=" {% url 'add' %} " method="POST" role="form">
+          {% csrf_token %}
+          <div class="form-group my_form">
+            <div class="input-group">{{ form.as_p }}</div>
+            <div class="input-group-btn">
+              <button type="reset" id="clear" class="btn btn-primary">
+                CLEAR
+              </button>
+              <button type="submit" id="submitTodo" class="btn btn-info">
+                ADD
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="row t10">
+          <div class="col-lg-12">
+            {% if no_todo %}
+            <div class="btn-toolbar">
+              <div class="btn-group">
+                <a href="{% url 'deletecompleted' %}"><button type="button" class="btn btn-warning">
+                    <i class="glyphicon glyphicon-trash"></i> DELETE COMPLETED
+                  </button>
+                </a>
+              </div>
+              <div class="btn-group">
+                
+                <button type="button" id="deleteall" class="btn btn-warning">
+                  <i class="glyphicon glyphicon-trash"></i> DELETE ALL
+                </button>
+                {% else %}
+                <div class="btn-toolbar">
+              <div class="btn-group">
+                <a href="{% url 'deletecompleted' %}"><button type="button" disabled class="btn btn-warning">
+                    <i class="glyphicon glyphicon-trash"></i> DELETE COMPLETED
+                  </button>
+                </a>
+              </div>
+              <div class="btn-group">
+                
+                <button type="button" disabled id="deleteall" class="btn btn-warning">
+                  <i class="glyphicon glyphicon-trash"></i> DELETE ALL
+                </button>
+                {% endif %}
+              </div>
+            </div>
+            <div class="total_todos">
+              <p>YOUR TODOS</p>
+              <p style="padding: 10px; font-size: 25px" class="badge text-light">
+                {{total_todos}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <ul class="list-group t30">
+          {% if not no_todo %}
+
+          <h2 class="notodo">YOU HAVE NO TODO</h2>
+
+          {% else %} {% for todo in todos %}
+          {% if todo.completed %}
+
+
+          <li class="list-group-item completed_todo">
+              <div class="todo">
+                <div class="todo-title">
+                  <p class="p1">
+                    <b> {{forloop.counter}}.</b> {{todo.title}}
+                  </p>
+                  <p>{{todo.updated}}</p>
+                </div>
+                <p>{{todo.description}}</p>
+              </div>
+            <div class="icon-div">
+               <a href=" {% url 'completed' todo.id %} " class="compl">
+                <i class="glyphicon glyphicon-ok"></i>
+              </a>
+              <a href=" {% url 'delete' todo.id %} " class="del">
+                <i class="glyphicon glyphicon-trash"></i>
+              </a>
+            </div>
+          </li>
+
+
+          {% else %}
+
+
+          <li class="list-group-item">
+              <div class="todo">
+                <div class="todo-title">
+                  <p class="p1">
+                    <b> {{forloop.counter}}.</b> {{todo.title}}
+                  </p>
+                  <p>{{todo.updated}}</p>
+                </div>
+                <p>{{todo.description}}</p>
+              </div>
+
+
+            <div class="icon-div">
+               <a href=" {% url 'completed' todo.id %} " class="compl">
+                <i class="glyphicon glyphicon-remove"></i>
+              </a>
+              <a href=" {% url 'delete' todo.id %} " class="del">
+                <i class="glyphicon glyphicon-trash"></i>
+              </a>
+            </div>
+          </li>
+             {% endif %}
+          {% endfor %} {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <div class="row pad">
+        <div class="col-lg-12 text-center">
+          Copyright &copy; 2022 <strong>RojiTech ToDo App</strong>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <div id="confirm">
+    <div>
+      <b>
+        <p>ARE YOU SURE YOU WANT TO DELETE ALL YOUR TODOS</p>
+      </b>
+      <div>
+        <div class="btn-toolbar">
+          <div class="btn-group">
+            <a href="/"><button type="button" class="btn btn-warning">
+                <i class="glyphicon glyphicon-remove"></i> CANCEL
+              </button>
+            </a>
+          </div>
+          <div class="btn-group">
+            <a href=" {% url 'deleteall' %} ">
+
+              <button type="button" id="deleteall" class="btn btn-warning">
+                <i class="glyphicon glyphicon-ok"></i> CONFIRM
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="./bs/js/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="./bs/js/bootstrap.min.js"></script>
+
+    <script>
+      let deleteAll = document.getElementById("deleteall");
+      let confirm = document.querySelector("#confirm")
+
+      deleteAll.addEventListener("click", () => {
+        confirm.style.height = "100%"
+        confirm.style.zIndex = "999"
+        confirm.style.opacity = "1"
+      })
+    </script>
+</body>
+
+</html>
