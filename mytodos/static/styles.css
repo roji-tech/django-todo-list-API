@@ -104,6 +104,12 @@ li.completed_todo {
   word-wrap: break-word;
 }
 
+.desc {
+  text-align: justify;
+  border-left: 1px solid blue;
+  padding-left: 10px;
+}
+
 li .icon-div {
   width: max-content;
   padding: 2px 10px;
