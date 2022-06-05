@@ -10,8 +10,12 @@ django-on-heroku = "*"
 dj-database-url = "*"
 whitenoise = "*"
 gunicorn = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"

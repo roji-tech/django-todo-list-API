@@ -123,6 +123,7 @@ li .icon-div {
   justify-self: center;
   align-self: center;
 }
+
 .icon-div a {
   font-size: larger;
   font-weight: 1000;
@@ -131,7 +132,7 @@ li .icon-div {
 }
 
 .icon-div a.compl {
-  background-color: rgb(17, 69, 9);
+  background-color: rgb(6, 82, 158);
 }
 
 .icon-div a.del {
@@ -159,7 +160,17 @@ footer {
 @media screen and (max-width: 500px) {
   .todo-title {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    text-align: center;
+  }
+  .p1 {
+    align-self: start;
+  }
+  
+  .icon-div a{
+    padding: 6px;
+    font-size: medium;
   }
 }
 
