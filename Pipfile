@@ -13,6 +13,9 @@ gunicorn = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
+pyyaml = "*"
+uritemplate = "*"
+coreapi = "*"
 
 [dev-packages]
 autopep8 = "*"

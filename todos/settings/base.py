@@ -134,6 +134,7 @@ AUTH_USER_MODEL = "core.User"
 
 REST_FRAMEWORK = {
     "COERCE_DECIMAL_TO_STRING": False,
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     "DEFAULT_PERMISSION_CLASSES" : [
         "rest_framework.permissions.AllowAny"
         ] ,
@@ -156,13 +157,12 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-ALLOWED_HOSTS=[]
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
 
-ALLOWED_HOSTS=[]
+# ALLOWED_HOSTS=[]
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
@@ -207,12 +207,12 @@ CORS_ORIGIN_WHITELIST = (
 # ]
 
 
-# ALLOWED_HOSTS=['http://localhost:3000']
+ALLOWED_HOSTS=['http://localhost:3000']
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': False,
