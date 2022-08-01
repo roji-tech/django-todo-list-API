@@ -13,19 +13,6 @@ class TodoForm(forms.ModelForm):
             }
         ))
 
-    description = forms.CharField(
-        required=False,
-        label="",
-        widget=forms.Textarea(
-            attrs={
-                'class': 'form-control',
-                'id': "description",
-                'rows': "4",
-                'placeholder': "Enter Todo DESCRIPTION"
-            }
-        )
-    )
-
     class Meta:
         model = Todo
-        fields = ["title", "description"]
+        fields = ["title"]

@@ -10,8 +10,6 @@ def list_todos(request):
     todos = Todo.objects.all().order_by("-created")
     total_todos = Todo.objects.count()
     no_todo = False if total_todos == 0 else True
-    print(total_todos)
-    print(no_todo)
 
     form = TodoForm()
     context = {
