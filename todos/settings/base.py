@@ -17,7 +17,6 @@ SECRET_KEY = "django-insecure-cjlw9sy1m_si!ecq@!p6-eziybxb2zqm2@52avkww657=zp_2q
 DEBUG = True
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -27,8 +26,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
-    
+
+
     # App
     'djoser',
     "corsheaders",
@@ -50,7 +49,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 
 
 ROOT_URLCONF = "todos.urls"
@@ -135,27 +133,16 @@ AUTH_USER_MODEL = "core.User"
 REST_FRAMEWORK = {
     "COERCE_DECIMAL_TO_STRING": False,
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
-    "DEFAULT_PERMISSION_CLASSES" : [
-        "rest_framework.permissions.AllowAny"
-        ] ,
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated"
+    ],
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
 
 
-
-
-
-
-
-
-
-
-
-
 CORS_ALLOW_ALL_ORIGINS = True
-
 
 
 CORS_ORIGIN_WHITELIST = (
@@ -207,14 +194,14 @@ CORS_ORIGIN_WHITELIST = (
 # ]
 
 
-ALLOWED_HOSTS=['http://localhost:3000']
+ALLOWED_HOSTS = ['http://localhost:3000']
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': False,
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,
 
     'ALGORITHM': 'HS256',
@@ -241,3 +228,38 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+
+DJOSER = {
+    "PASSWORD_RESET_CONFIRM_URL": "#/password/reset/confirm/{uid}/{token}",
+    "USERNAME_RESET_CONFIRM_URL": "#/username/reset/confirm/{uid}/{token}",
+    "ACTIVATION_URL": "#/activate/{uid}/{token}",
+    "SEND_ACTIVATION_EMAIL": True,
+    "SERIALIZERS": {
+        "activation": "djoser.serializers.ActivationSerializer",
+        "password_reset": "djoser.serializers.SendEmailResetSerializer",
+        "password_reset_confirm": "djoser.serializers.PasswordResetConfirmSerializer",
+        "password_reset_confirm_retype": "djoser.serializers.PasswordResetConfirmRetypeSerializer",
+        "set_password": "djoser.serializers.SetPasswordSerializer",
+        "set_password_retype": "djoser.serializers.SetPasswordRetypeSerializer",
+        "set_username": "djoser.serializers.SetUsernameSerializer",
+        "set_username_retype": "djoser.serializers.SetUsernameRetypeSerializer",
+        "username_reset": "djoser.serializers.SendEmailResetSerializer",
+        "username_reset_confirm": "djoser.serializers.UsernameResetConfirmSerializer",
+        "username_reset_confirm_retype": "djoser.serializers.UsernameResetConfirmRetypeSerializer",
+        "user_create": "core.serializers.UserCreateSerializer",
+        "user_create_password_retype": "djoser.serializers.UserCreatePasswordRetypeSerializer",
+        "user_delete": "djoser.serializers.UserDeleteSerializer",
+        "user": "djoser.serializers.UserSerializer",
+        "current_user": "djoser.serializers.UserSerializer",
+        "token": "djoser.serializers.TokenSerializer",
+        "token_create": "djoser.serializers.TokenCreateSerializer",
+    },
+}
+
+
+DEFAULT_FROM_EMAIL = "rojitech9@gmail.com"
+
+ADMINS = [("ROJ", "roj@admin.com")]
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
