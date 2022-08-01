@@ -1,6 +1,5 @@
-from .common import *
-import os
 from .base import *
+import os
 import django_on_heroku
 import dj_database_url
 
@@ -10,12 +9,6 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = True
 
 ALLOWED_HOSTS = ["django-todolist-api.herokuapp.com"]
-
-
-DEBUG = os.environ.get("DEBUG", False)
-
-DEBUG = True
-
 
 DATABASES = {
     "default": dj_database_url.config()
